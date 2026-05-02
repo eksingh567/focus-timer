@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>FocusLock - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&amp;family=DM+Mono:wght@400;500&amp;family=Geist:wght@300;400;500;600&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-container": "#00bdaf",
+            "primary-fixed-dim": "#ffb955",
+            "on-secondary-fixed-variant": "#00504a",
+            "outline-variant": "#2A2A35",
+            "on-tertiary-fixed-variant": "#004c69",
+            "outline": "#9f8e7a",
+            "surface-dim": "#0F0F12",
+            "inverse-primary": "#835500",
+            "surface": "#0F0F12",
+            "error": "#ffb4ab",
+            "background": "#0F0F12",
+            "on-secondary-container": "#004640",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-fixed": "#001e2c",
+            "tertiary": "#9bd9ff",
+            "on-surface": "#F2F2F5",
+            "secondary-fixed-dim": "#45dccd",
+            "on-primary": "#452b00",
+            "error-container": "#93000a",
+            "on-secondary": "#003733",
+            "on-primary-container": "#644000",
+            "primary-fixed": "#ffddb4",
+            "secondary": "#45dccd",
+            "surface-variant": "#1A1A22",
+            "tertiary-container": "#3ac2ff",
+            "inverse-on-surface": "#303033",
+            "surface-tint": "#ffb955",
+            "surface-container": "#1A1A22",
+            "primary": "#F5A623",
+            "inverse-surface": "#e4e1e6",
+            "surface-container-high": "#1F1F2A",
+            "surface-container-lowest": "#0E0E11",
+            "surface-container-low": "#1A1A22",
+            "on-surface-variant": "#8A8A9A",
+            "on-primary-fixed-variant": "#633f00",
+            "tertiary-fixed-dim": "#7cd0ff",
+            "primary-container": "#F5A623",
+            "on-background": "#F2F2F5",
+            "surface-bright": "#39393c",
+            "on-primary-fixed": "#291800",
+            "on-tertiary": "#00344a",
+            "on-secondary-fixed": "#00201d",
+            "on-tertiary-container": "#004d6a",
+            "tertiary-fixed": "#c4e7ff",
+            "on-error": "#690005",
+            "surface-container-highest": "#353438",
+            "secondary-fixed": "#69f8ea"
+          },
+          fontFamily: {
+            "headline": ["Syne", "sans-serif"],
+            "body": ["Geist", "sans-serif"],
+            "label": ["Geist", "sans-serif"],
+            "mono": ["DM Mono", "monospace"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .focus-pulse {
+      animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface font-body selection:bg-primary/30 min-h-screen flex flex-col">
+  <!-- TopAppBar -->
+  <header
+    class="bg-[#0F0F12] border-b border-[#2A2A35]/40 fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 py-4">
+    <div class="flex items-center gap-3">
+      <span class="material-symbols-outlined text-amber-500"
+        data-icon="precision_manufacturing">precision_manufacturing</span>
+      <h1 class="text-xl font-bold tracking-tighter text-amber-500 font-['Syne']">FOCUSLOCK</h1>
+    </div>
+    <button class="text-[#8A8A9A] hover:bg-[#1A1A22] transition-colors duration-200 p-2 rounded-lg active:scale-95">
+      <span class="material-symbols-outlined" data-icon="settings">settings</span>
+    </button>
+  </header>
+  <main class="flex-1 pt-24 pb-32 px-6">
+    <!-- Greeting Section -->
+    <section class="mb-10">
+      <h2 class="text-3xl font-medium font-headline tracking-tight leading-tight">
+        Ready to lock in,<br />Alex?
+      </h2>
+    </section>
+    <!-- Active Session Banner -->
+    <section class="mb-10">
+      <div
+        class="w-full bg-primary rounded-2xl p-5 flex items-center justify-between shadow-[0_12px_24px_rgba(245,166,35,0.15)] relative overflow-hidden group active:scale-[0.98] transition-transform duration-150">
+        <div class="flex items-center gap-4 relative z-10">
+          <div class="w-2.5 h-2.5 bg-[#452b00] rounded-full focus-pulse"></div>
+          <div>
+            <p class="text-[#452b00] font-bold text-sm tracking-wide">Session Active — <span
+                class="font-mono">32:14</span> remaining</p>
+            <p class="text-[#452b00]/70 text-xs font-medium">Tap to view lock screen</p>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-[#452b00] relative z-10"
+          data-icon="arrow_forward_ios">arrow_forward_ios</span>
+        <!-- Abstract texture for premium feel -->
+        <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
+      </div>
+    </section>
+    <!-- Stats Bar -->
+    <section class="grid grid-cols-3 gap-3 mb-12">
+      <div class="bg-surface-container-high rounded-xl p-3 flex flex-col items-center justify-center text-center">
+        <p class="text-[#8A8A9A] text-[10px] font-medium uppercase tracking-widest mb-1">Today</p>
+        <p class="text-primary font-mono text-xs font-bold whitespace-nowrap">2h 15m</p>
+      </div>
+      <div class="bg-surface-container-high rounded-xl p-3 flex flex-col items-center justify-center text-center">
+        <p class="text-[#8A8A9A] text-[10px] font-medium uppercase tracking-widest mb-1">Streak</p>
+        <p class="text-primary font-mono text-xs font-bold">6 days</p>
+      </div>
+      <div class="bg-surface-container-high rounded-xl p-3 flex flex-col items-center justify-center text-center">
+        <p class="text-[#8A8A9A] text-[10px] font-medium uppercase tracking-widest mb-1">Sessions</p>
+        <p class="text-primary font-mono text-xs font-bold">14</p>
+      </div>
+    </section>
+    <!-- Quick Start Presets -->
+    <section>
+      <div class="flex items-baseline justify-between mb-6">
+        <h3 class="text-lg font-semibold font-headline">Presets</h3>
+        <button class="text-primary text-xs font-bold uppercase tracking-widest">See All</button>
+      </div>
+      <div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 -mx-6 px-6">
+        <!-- Card 1 -->
+        <div
+          class="min-w-[200px] bg-surface-container-low border border-outline-variant/40 rounded-2xl p-5 flex flex-col items-center justify-between aspect-[3/4] relative hover:bg-[#1F1F2A] transition-colors group cursor-pointer active:scale-95 duration-200">
+          <div
+            class="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-full border border-primary/20 self-center">
+            DEEP WORK</div>
+          <div class="text-center my-6">
+            <span class="text-4xl font-mono text-primary font-bold">90</span>
+            <span class="text-[#8A8A9A] font-mono text-lg">m</span>
+          </div>
+          <p class="text-[#8A8A9A] text-xs font-medium">Study Block · 45m</p>
+        </div>
+        <!-- Card 2 -->
+        <div
+          class="min-w-[200px] bg-surface-container-low border border-outline-variant/40 rounded-2xl p-5 flex flex-col items-center justify-between aspect-[3/4] relative hover:bg-[#1F1F2A] transition-colors group cursor-pointer active:scale-95 duration-200">
+          <div
+            class="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-full border border-primary/20 self-center uppercase">
+            Reading</div>
+          <div class="text-center my-6">
+            <span class="text-4xl font-mono text-primary font-bold">45</span>
+            <span class="text-[#8A8A9A] font-mono text-lg">m</span>
+          </div>
+          <p class="text-[#8A8A9A] text-xs font-medium">Study Block · 45m</p>
+        </div>
+        <!-- Card 3 -->
+        <div
+          class="min-w-[200px] bg-surface-container-low border border-outline-variant/40 rounded-2xl p-5 flex flex-col items-center justify-between aspect-[3/4] relative hover:bg-[#1F1F2A] transition-colors group cursor-pointer active:scale-95 duration-200">
+          <div
+            class="bg-primary/10 text-primary text-[10px] font-bold px-3 py-1 rounded-full border border-primary/20 self-center">
+            DIGITAL DETOX</div>
+          <div class="text-center my-6">
+            <span class="text-4xl font-mono text-primary font-bold">60</span>
+            <span class="text-[#8A8A9A] font-mono text-lg">m</span>
+          </div>
+          <p class="text-[#8A8A9A] text-xs font-medium">No-Phone Hour · 60m</p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Main CTA - Fixed Bottom -->
+  <div class="fixed bottom-24 left-0 w-full px-6 z-40">
+    <button
+      class="w-full bg-gradient-to-br from-primary to-[#644000] text-[#452b00] py-5 rounded-xl font-bold text-lg shadow-[0_10px_30px_rgba(0,0,0,0.5)] active:scale-90 transition-all duration-200 flex items-center justify-center gap-3">
+      <span class="material-symbols-outlined" data-icon="add">add</span>
+      + Start New Session
+    </button>
+  </div>
+  <!-- BottomNavBar -->
+  <nav
+    class="fixed bottom-0 left-0 w-full bg-[#1A1A22]/80 backdrop-blur-xl border-t border-[#2A2A35]/40 flex justify-around items-center px-4 pb-6 pt-2 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.5)]">
+    <a class="flex flex-col items-center justify-center text-amber-500 font-bold bg-[#1F1F2A] rounded-xl px-4 py-2 scale-90 transition-transform duration-200"
+      href="#">
+      <span class="material-symbols-outlined mb-1" data-icon="grid_view"
+        style="font-variation-settings: 'FILL' 1;">grid_view</span>
+      <span class="font-['DM_Mono'] text-[10px] tracking-widest uppercase">DASHBOARD</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-[#8A8A9A] px-4 py-2 hover:text-amber-400" href="#">
+      <span class="material-symbols-outlined mb-1" data-icon="timer">timer</span>
+      <span class="font-['DM_Mono'] text-[10px] tracking-widest uppercase">FOCUS</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-[#8A8A9A] px-4 py-2 hover:text-amber-400" href="#">
+      <span class="material-symbols-outlined mb-1" data-icon="query_stats">query_stats</span>
+      <span class="font-['DM_Mono'] text-[10px] tracking-widest uppercase">ANALYTICS</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-[#8A8A9A] px-4 py-2 hover:text-amber-400" href="#">
+      <span class="material-symbols-outlined mb-1" data-icon="lock">lock</span>
+      <span class="font-['DM_Mono'] text-[10px] tracking-widest uppercase">VAULT</span>
+    </a>
+  </nav>
+</body>
+
+</html>

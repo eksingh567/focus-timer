@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>FocusLock Mobile</title>
+    <script defer src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&family=Geist:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#F5A623",
+                        "secondary": "#45dccd",
+                        "background": "#0F0F12",
+                        "surface": "#1A1A22",
+                        "on-surface": "#F2F2F5",
+                        "surface-container-high": "#1F1F2A",
+                    },
+                    fontFamily: {
+                        "headline": ["Syne", "sans-serif"],
+                        "body": ["Geist", "sans-serif"],
+                        "mono": ["DM Mono", "monospace"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active {
+            display: flex;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .vignette {
+            background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.8) 100%);
+            pointer-events: none;
+        }
+
+        .focus-pulse {
+            animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.4;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        body {
+            background-color: #0F0F12;
+            color: #F2F2F5;
+            min-height: 100dvh;
+        }
+    </style>
+</head>
+
+<body class="font-body transition-colors duration-500">
+
+    <!-- CONNECTIVITY MODAL -->
+    <div id="modal-settings" class="view-section flex-col items-center justify-center min-h-screen px-8 bg-black/90 fixed inset-0 z-[100]">
+        <div class="bg-surface p-8 rounded-3xl border border-white/5 w-full max-w-sm">
+            <h3 class="text-2xl font-headline font-bold mb-2">Device Linking</h3>
+            <p class="text-xs text-slate-500 mb-6">Connect this node to your laptop's Focus Hub.</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[10px] uppercase font-bold text-slate-500 mb-1 block">Hub IP Address</label>
+                    <input id="hubIpInput" placeholder="e.g. 192.168.1.15" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-primary font-mono outline-none focus:border-primary transition-all" value="{{ ip }}">
+                </div>
+                <button onclick="saveIp()" class="w-full bg-primary text-black font-bold py-3 rounded-xl">SYNC WITH HUB</button>
+                <button onclick="closeSettings()" class="w-full bg-transparent text-slate-500 text-xs py-2">CANCEL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOME VIEW -->
+    <div id="view-home" class="view-section active flex-col min-h-screen">
+        <header class="border-b border-white/5 px-6 py-6 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">precision_manufacturing</span>
+                <h1 class="text-xl font-bold tracking-tighter text-primary font-headline">FOCUSLOCK</h1>
+            </div>
+            <button onclick="openSettings()" class="material-symbols-outlined text-slate-500">settings</button>
+        </header>
+        <main class="flex-1 px-6 pt-10">
+            <!-- REST OF HOME -->
+            <h2 class="text-3xl font-medium font-headline mb-8">System Status</h2>
+            <div class="bg-surface-container-high rounded-2xl p-5 mb-10 border border-white/5">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div id="connDot" class="w-2 h-2 bg-slate-600 rounded-full"></div>
+                        <div>
+                            <p class="text-[10px] text-slate-500 uppercase">Hub Connection</p>
+                            <p id="connStatus" class="font-bold text-xs uppercase">LINK IDLE</p>
+                        </div>
+                    </div>
+                    <span id="linkedIpLabel" class="text-[10px] font-mono text-slate-500">{{ ip }}:8000</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 gap-4">
+                <div class="bg-surface rounded-2xl p-6 border border-white/5 flex items-center gap-5">
+                    <span class="material-symbols-outlined text-3xl text-secondary">history</span>
+                    <div>
+                        <p class="font-bold">Device Activity</p>
+                        <p class="text-xs text-slate-500">Syncing history with hub...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- CELEBRATION & LOCK VIEWS (Rest) -->
+    <div id="view-lock" class="view-section flex-col items-center justify-between min-h-screen py-20 px-8 relative">
+        <div class="absolute inset-0 vignette z-0"></div>
+        <header class="z-10 flex flex-col items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-3xl">lock_clock</span>
+            <p class="text-[10px] tracking-[0.2em] text-slate-500 uppercase font-bold">FOCUS SESSION ACTIVE</p>
+        </header>
+        <main class="z-10 relative flex flex-col items-center">
+            <div class="relative w-64 h-64 flex items-center justify-center">
+                <svg class="absolute inset-0 -rotate-90" viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" fill="none" r="46" stroke="#1A1A22" stroke-width="2"></circle>
+                    <circle id="timerCircle" cx="50" cy="50" fill="none" r="46" stroke="#F5A623" stroke-dasharray="289" stroke-dashoffset="0" stroke-linecap="round" stroke-width="2" class="transition-all duration-1000"></circle>
+                </svg>
+                <span id="timerText" class="font-mono text-7xl text-white tracking-tighter">00:00</span>
+            </div>
+        </main>
+        <footer class="z-10">
+            <div class="w-1.5 h-1.5 rounded-full bg-secondary focus-pulse mx-auto mb-2"></div>
+            <p class="text-[10px] text-slate-600 tracking-widest uppercase">Encryption Active</p>
+        </footer>
+    </div>
+
+    <div id="view-celeb" class="view-section flex-col items-center justify-center min-h-screen px-8 text-center bg-[#0A0A0C]">
+        <span class="material-symbols-outlined text-8xl text-secondary mb-4">check_circle</span>
+        <h1 class="font-headline font-bold text-4xl mb-4 tracking-tighter uppercase">Focus Goal Met</h1>
+        <p class="font-mono text-primary text-xl mb-12">System Unlocked</p>
+        <button onclick="window.location.reload()" class="w-full bg-surface border border-white/10 text-white font-bold py-4 rounded-xl">RETURN HOME</button>
+    </div>
+
+    <script>
+        let lastMode = 'unlock';
+        let totalSecondsSet = 0;
+        
+        // Auto-detect IP from the URL we actually loaded from
+        let currentHost = window.location.hostname;
+        let hubIp = (currentHost && currentHost !== 'localhost' && currentHost !== '127.0.0.1') 
+            ? currentHost 
+            : (localStorage.getItem('hubIp') || '10.0.2.2');
+
+        document.getElementById('hubIpInput').value = hubIp;
+        document.getElementById('linkedIpLabel').innerText = hubIp;
+
+        function openSettings() { 
+            if (window.AndroidIoT && window.AndroidIoT.showIpDialog) {
+                window.AndroidIoT.showIpDialog();
+            } else {
+                switchView('modal-settings'); 
+                setTimeout(() => {
+                    const input = document.getElementById('hubIpInput');
+                    if (input) {
+                        input.focus();
+                        input.click();
+                    }
+                }, 300);
+            }
+        }
+        function closeSettings() { switchView('view-home'); }
+        
+        function saveIp() {
+            hubIp = document.getElementById('hubIpInput').value;
+            localStorage.setItem('hubIp', hubIp);
+            document.getElementById('linkedIpLabel').innerText = hubIp;
+            if(window.AndroidIoT) {
+                window.AndroidIoT.saveServerIp(hubIp);
+            }
+            closeSettings();
+            updateStatus();
+        }
+
+        async function updateStatus() {
+            try {
+                const r = await fetch('/status');
+                const data = await r.json();
+                
+                document.getElementById('connDot').className = 'w-2 h-2 bg-secondary rounded-full focus-pulse';
+                document.getElementById('connStatus').innerText = 'LINK ACTIVE';
+
+                // Don't auto-switch views if the user is currently in the settings modal
+                if (document.getElementById('modal-settings').classList.contains('active')) {
+                    lastMode = data.mode;
+                    return;
+                }
+
+                if (data.mode === 'lock') {
+                    if (!document.getElementById('view-lock').classList.contains('active')) {
+                        switchView('view-lock');
+                    }
+                    updateTimer(data.seconds_remaining);
+                    document.body.classList.add('bg-[#0A0A0C]');
+                } else if (lastMode === 'lock' && data.mode === 'unlock') {
+                    switchView('view-celeb');
+                    if (window.AndroidLock && window.AndroidLock.finishLock) {
+                        window.AndroidLock.finishLock();
+                    }
+                } else if (data.mode === 'unlock') {
+                    if (document.getElementById('view-celeb').classList.contains('active')) {}
+                    else if (!document.getElementById('view-home').classList.contains('active')) {
+                        switchView('view-home');
+                    }
+                }
+                lastMode = data.mode;
+            } catch (e) { 
+                document.getElementById('connDot').className = 'w-2 h-2 bg-slate-600 rounded-full';
+                document.getElementById('connStatus').innerText = 'LINK FAILED';
+                console.error("Hub fail", e); 
+            }
+        }
+
+        function switchView(viewId) {
+            // Only hide primary views, not the modal
+            document.querySelectorAll('.view-section').forEach(v => {
+                if (v.id !== 'modal-settings') v.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+            
+            // If we are switching TO a main view, hide the modal explicitly if needed
+            if (viewId === 'view-home' || viewId === 'view-lock' || viewId === 'view-celeb') {
+                document.getElementById('modal-settings').classList.remove('active');
+            }
+        }
+
+        function updateTimer(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('timerText').innerText = `${m}:${s}`;
+            if (totalSecondsSet === 0) totalSecondsSet = seconds || 1500;
+            const offset = 289 - (289 * (seconds / totalSecondsSet));
+            document.getElementById('timerCircle').style.strokeDashoffset = offset;
+        }
+
+        setInterval(updateStatus, 1500);
+        updateStatus();
+    </script>
+</body>
+
+</html>
