@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&amp;family=DM+Mono:wght@400;500&amp;family=Inter:wght@400;600&amp;family=Space+Grotesk:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "tertiary": "#9bd9ff",
+                "on-error": "#690005",
+                "surface-variant": "#353438",
+                "tertiary-fixed": "#c4e7ff",
+                "surface-container-low": "#1b1b1e",
+                "on-tertiary": "#00344a",
+                "on-background": "#e4e1e6",
+                "on-secondary-fixed": "#00201d",
+                "on-secondary-fixed-variant": "#00504a",
+                "on-error-container": "#ffdad6",
+                "secondary": "#45dccd",
+                "tertiary-fixed-dim": "#7cd0ff",
+                "surface-tint": "#ffb955",
+                "surface-dim": "#131316",
+                "on-tertiary-fixed": "#001e2c",
+                "surface-container-lowest": "#0e0e11",
+                "inverse-on-surface": "#303033",
+                "primary-container": "#f5a623",
+                "secondary-container": "#00bdaf",
+                "on-tertiary-fixed-variant": "#004c69",
+                "on-secondary": "#003733",
+                "surface-container-highest": "#353438",
+                "primary": "#ffc880",
+                "outline": "#9f8e7a",
+                "on-surface": "#e4e1e6",
+                "primary-fixed-dim": "#ffb955",
+                "outline-variant": "#524534",
+                "secondary-fixed": "#69f8ea",
+                "secondary-fixed-dim": "#45dccd",
+                "on-secondary-container": "#004640",
+                "on-tertiary-container": "#004d6a",
+                "inverse-primary": "#835500",
+                "error-container": "#93000a",
+                "on-primary": "#452b00",
+                "primary-fixed": "#ffddb4",
+                "on-primary-container": "#644000",
+                "inverse-surface": "#e4e1e6",
+                "surface-bright": "#39393c",
+                "error": "#ffb4ab",
+                "on-surface-variant": "#d7c3ae",
+                "surface-container-high": "#2a2a2d",
+                "surface-container": "#1f1f22",
+                "tertiary-container": "#3ac2ff",
+                "on-primary-fixed-variant": "#633f00",
+                "on-primary-fixed": "#291800",
+                "background": "#0F0F12",
+                "surface": "#131316"
+              },
+              fontFamily: {
+                "headline": ["Syne", "sans-serif"],
+                "body": ["Inter", "sans-serif"],
+                "label": ["Inter", "sans-serif"],
+                "mono": ["DM Mono", "monospace"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pulse-glow {
+            animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.95); }
+        }
+        .cockpit-card {
+            background: linear-gradient(145deg, #1A1A22 0%, #131316 100%);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- SideNavBar -->
+<nav class="h-screen fixed left-0 top-0 w-64 border-r border-outline-variant/40 bg-[#1A1A22] dark:bg-[#1A1A22] flex flex-col justify-between py-8 px-4 z-50 font-['Syne'] tracking-tight text-[#F2F2F5] font-['Geist'] text-sm">
+<div>
+<div class="flex items-center gap-3 px-2 mb-10">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tighter text-[#F5A623] font-['Syne']">FocusLock</h1>
+<p class="text-[10px] uppercase tracking-widest text-[#8A8A9A]">v2.4.0 Kinetic</p>
+</div>
+</div>
+<div class="space-y-1">
+<a class="text-[#8A8A9A] flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#1F1F2A] hover:text-[#F2F2F5] transition-colors duration-200" href="/">
+<span class="material-symbols-outlined">grid_view</span>
+<span>Dashboard</span>
+</a>
+<a class="text-[#8A8A9A] flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#1F1F2A] hover:text-[#F2F2F5] transition-colors duration-200" href="/history">
+<span class="material-symbols-outlined">history</span>
+<span>History</span>
+</a>
+<a class="text-[#F5A623] bg-[#1F1F2A] border-r-2 border-[#F5A623] font-bold transition-all flex items-center gap-3 px-4 py-3 rounded-lg" href="/devices">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">router</span>
+<span>Devices</span>
+</a>
+<a class="text-[#8A8A9A] flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[#1F1F2A] hover:text-[#F2F2F5] transition-colors duration-200" href="/settings">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</div>
+<div class="space-y-4">
+<button class="w-full py-3 px-4 bg-gradient-to-br from-primary-container to-[#644000] text-on-primary-container rounded-xl font-bold text-xs uppercase tracking-widest transition-transform active:scale-95">
+                Connect Hardware
+            </button>
+<div class="pt-4 border-t border-outline-variant/20">
+<a class="text-[#8A8A9A] flex items-center gap-3 px-4 py-2 hover:text-[#F2F2F5] transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">help</span>
+<span>Support</span>
+</a>
+<a class="text-[#8A8A9A] flex items-center gap-3 px-4 py-2 hover:text-[#F2F2F5] transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">logout</span>
+<span>Sign Out</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-20 bg-transparent backdrop-blur-md flex justify-between items-center px-10 max-w-full z-40">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary pulse-glow" style="font-variation-settings: 'FILL' 1;">radio_button_checked</span>
+<h2 class="font-headline text-2xl font-bold text-on-surface">Hardware Cockpit</h2>
+</div>
+<div class="h-6 w-px bg-outline-variant/40"></div>
+<div class="flex flex-col">
+<span class="font-mono text-[10px] text-[#8A8A9A] tracking-widest uppercase">Current Mode</span>
+<span class="font-mono text-xs text-secondary font-bold tracking-wider">DEEP FOCUS ALPHA</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined text-[#8A8A9A] hover:text-secondary cursor-pointer transition-all">notifications</span>
+<div class="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></div>
+</div>
+<span class="material-symbols-outlined text-[#8A8A9A] hover:text-secondary cursor-pointer transition-all">hub</span>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/40">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">Admin_Node_01</p>
+<p class="text-[10px] text-[#8A8A9A] font-mono">SECURED</p>
+</div>
+<span class="material-symbols-outlined text-3xl text-primary">account_circle</span>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="pt-32 px-10 pb-20">
+<div class="flex justify-between items-end mb-12">
+<div>
+<h3 class="font-headline text-4xl font-bold tracking-tight mb-2">Connected Devices</h3>
+<p class="text-[#8A8A9A] max-w-md">Real-time status and biometric synchronization for your hardware ecosystem.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-low px-4 py-2 rounded-lg border border-outline-variant/20 flex items-center gap-3">
+<span class="font-mono text-xs text-[#8A8A9A]">ACTIVE NODES:</span>
+<span class="font-mono text-xs text-primary font-bold">03</span>
+</div>
+<div class="bg-surface-container-low px-4 py-2 rounded-lg border border-outline-variant/20 flex items-center gap-3">
+<span class="font-mono text-xs text-[#8A8A9A]">SIGNAL AVG:</span>
+<span class="font-mono text-xs text-secondary font-bold">98%</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid of Devices -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- iPhone 14 Pro Card -->
+<div class="cockpit-card rounded-2xl p-6 border border-outline-variant/30 flex flex-col justify-between group hover:border-primary/40 transition-all duration-300">
+<div class="flex justify-between items-start mb-8">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-xl flex items-center justify-center border border-outline-variant/40">
+<span class="material-symbols-outlined text-2xl text-on-surface">smartphone</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg">iPhone 14 Pro</h4>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary pulse-glow"></span>
+<span class="font-mono text-[10px] text-secondary font-bold tracking-widest uppercase">LIVE</span>
+</div>
+</div>
+</div>
+<button class="text-[#8A8A9A] hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl">more_vert</span>
+</button>
+</div>
+<div class="space-y-6 mb-8">
+<!-- Battery -->
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-[10px] font-mono text-[#8A8A9A] uppercase tracking-tighter">Power Cell</span>
+<span class="text-sm font-mono text-primary font-bold">84%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden border border-outline-variant/20">
+<div class="h-full bg-gradient-to-r from-primary/60 to-primary rounded-full" style="width: 84%"></div>
+</div>
+</div>
+<!-- Signal -->
+<div class="flex justify-between items-center py-3 border-y border-outline-variant/10">
+<span class="text-[10px] font-mono text-[#8A8A9A] uppercase tracking-tighter">Signal Matrix</span>
+<div class="flex items-end gap-0.5 h-3">
+<div class="w-1 h-full bg-secondary rounded-sm"></div>
+<div class="w-1 h-3/4 bg-secondary rounded-sm"></div>
+<div class="w-1 h-1/2 bg-secondary rounded-sm"></div>
+<div class="w-1 h-1/4 bg-outline-variant/40 rounded-sm"></div>
+</div>
+</div>
+<!-- Metrics -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-high/50 p-3 rounded-xl border border-outline-variant/10">
+<p class="text-[9px] font-mono text-[#8A8A9A] uppercase mb-1">Latency</p>
+<p class="text-sm font-mono text-on-surface">12ms</p>
+</div>
+<div class="bg-surface-container-high/50 p-3 rounded-xl border border-outline-variant/10">
+<p class="text-[9px] font-mono text-[#8A8A9A] uppercase mb-1">Last Sync</p>
+<p class="text-sm font-mono text-on-surface">Just Now</p>
+</div>
+</div>
+</div>
+<button class="w-full py-2 border border-outline-variant/40 text-[10px] font-mono font-bold text-primary uppercase tracking-widest rounded-lg hover:bg-primary/5 hover:border-primary/60 transition-all">
+                        Unpair Device
+                    </button>
+</div>
+<!-- iPad Pro Card -->
+<div class="cockpit-card rounded-2xl p-6 border border-outline-variant/30 flex flex-col justify-between group hover:border-primary/40 transition-all duration-300">
+<div class="flex justify-between items-start mb-8">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-xl flex items-center justify-center border border-outline-variant/40">
+<span class="material-symbols-outlined text-2xl text-on-surface">tablet_mac</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg">iPad Pro 12.9"</h4>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary pulse-glow"></span>
+<span class="font-mono text-[10px] text-secondary font-bold tracking-widest uppercase">LIVE</span>
+</div>
+</div>
+</div>
+<button class="text-[#8A8A9A] hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl">more_vert</span>
+</button>
+</div>
+<div class="space-y-6 mb-8">
+<!-- Battery -->
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-[10px] font-mono text-[#8A8A9A] uppercase tracking-tighter">Power Cell</span>
+<span class="text-sm font-mono text-primary font-bold">42%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden border border-outline-variant/20">
+<div class="h-full bg-gradient-to-r from-primary/60 to-primary rounded-full" style="width: 42%"></div>
+</div>
+</div>
+<!-- Signal -->
+<div class="flex justify-between items-center py-3 border-y border-outline-variant/10">
+<span class="text-[10px] font-mono text-[#8A8A9A] uppercase tracking-tighter">Signal Matrix</span>
+<div class="flex items-end gap-0.5 h-3">
+<div class="w-1 h-full bg-secondary rounded-sm"></div>
+<div class="w-1 h-full bg-secondary rounded-sm"></div>
+<div class="w-1 h-full bg-secondary rounded-sm"></div>
+<div class="w-1 h-full bg-secondary rounded-sm"></div>
+</div>
+</div>
+<!-- Metrics -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-high/50 p-3 rounded-xl border border-outline-variant/10">
+<p class="text-[9px] font-mono text-[#8A8A9A] uppercase mb-1">Latency</p>
+<p class="text-sm font-mono text-on-surface">8ms</p>
+</div>
+<div class="bg-surface-container-high/50 p-3 rounded-xl border border-outline-variant/10">
+<p class="text-[9px] font-mono text-[#8A8A9A] uppercase mb-1">Last Sync</p>
+<p class="text-sm font-mono text-on-surface">2m ago</p>
+</div>
+</div>
+</div>
+<button class="w-full py-2 border border-outline-variant/40 text-[10px] font-mono font-bold text-primary uppercase tracking-widest rounded-lg hover:bg-primary/5 hover:border-primary/60 transition-all">
+                        Unpair Device
+                    </button>
+</div>
+<!-- MacBook Pro Card -->
+<div class="cockpit-card rounded-2xl p-6 border border-outline-variant/30 flex flex-col justify-between group hover:border-primary/40 transition-all duration-300">
+<div class="flex justify-between items-start mb-8">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-high rounded-xl flex items-center justify-center border border-outline-variant/40">
+<span class="material-symbols-outlined text-2xl text-on-surface">laptop_mac</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-lg">MacBook Pro M2</h4>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary pulse-glow"></span>
+<span class="font-mono text-[10px] text-secondary font-bold tracking-widest uppercase">LIVE</span>
+</div>
+</div>
+</div>
+<button class="text-[#8A8A9A] hover:text-error transition-colors">
+<span class="material-symbols-outlined text-xl">more_vert</span>
+</button>
+</div>
+<div class="space-y-6 mb-8">
+<!-- Battery -->
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-[10px] font-mono text-[#8A8A9A] uppercase tracking-tighter">Power Cell</span>
+<span class="text-sm font-mono text-primary font-bold">100%</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden border border-outline-variant/20">
+<div class="h-full bg-gradient-to-r from-primary/60 to-primary rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<!-- Signal -->
+<div class="flex justify-between items-center py-3 border-y border-outline-variant/10">
+<span class="text-[10px] font-mono text-[#8A8A9A] uppercase tracking-tighter">Signal Matrix</span>
+<div class="flex items-end gap-0.5 h-3">
+<div class="w-1 h-full bg-secondary rounded-sm"></div>
+<div class="w-1 h-full bg-secondary rounded-sm"></div>
+<div class="w-1 h-3/4 bg-secondary rounded-sm"></div>
+<div class="w-1 h-1/2 bg-outline-variant/40 rounded-sm"></div>
+</div>
+</div>
+<!-- Metrics -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-high/50 p-3 rounded-xl border border-outline-variant/10">
+<p class="text-[9px] font-mono text-[#8A8A9A] uppercase mb-1">Latency</p>
+<p class="text-sm font-mono text-on-surface">5ms</p>
+</div>
+<div class="bg-surface-container-high/50 p-3 rounded-xl border border-outline-variant/10">
+<p class="text-[9px] font-mono text-[#8A8A9A] uppercase mb-1">Last Sync</p>
+<p class="text-sm font-mono text-on-surface">Just Now</p>
+</div>
+</div>
+</div>
+<button class="w-full py-2 border border-outline-variant/40 text-[10px] font-mono font-bold text-primary uppercase tracking-widest rounded-lg hover:bg-primary/5 hover:border-primary/60 transition-all">
+                        Unpair Device
+                    </button>
+</div>
+<!-- Add New Device Placeholder -->
+<div class="rounded-2xl p-6 border-2 border-dashed border-outline-variant/30 flex flex-col items-center justify-center text-center group hover:bg-surface-container-low transition-all cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-3xl text-primary-container">add_circle</span>
+</div>
+<h4 class="font-headline font-bold text-lg mb-1">Initialize New Node</h4>
+<p class="text-xs text-[#8A8A9A] font-mono uppercase tracking-widest">Awaiting Command</p>
+</div>
+</div>
+<!-- Kinetic Status Log (Section) -->
+<div class="mt-20">
+<div class="flex items-center gap-4 mb-8">
+<h3 class="font-headline text-xl font-bold">System Log</h3>
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/10 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<span class="font-mono text-xs text-[#8A8A9A]">14:22:09</span>
+<span class="font-mono text-xs text-secondary">[SECURE]</span>
+<p class="text-sm text-on-surface">Biometric handshake complete for MacBook Pro M2</p>
+</div>
+<span class="material-symbols-outlined text-secondary text-sm">check_circle</span>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl border border-outline-variant/10 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<span class="font-mono text-xs text-[#8A8A9A]">14:18:45</span>
+<span class="font-mono text-xs text-primary">[SYSTEM]</span>
+<p class="text-sm text-on-surface">Syncing focal profile 'Deep Focus Alpha' to 3 connected nodes</p>
+</div>
+<span class="material-symbols-outlined text-primary text-sm">sync</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

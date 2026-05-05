@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&amp;family=DM+Mono:wght@400;500&amp;family=Geist:wght@400;600&amp;family=Space+Grotesk:wght@400;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-surface": "#e4e1e6",
+                        "tertiary-fixed-dim": "#7cd0ff",
+                        "surface-dim": "#131316",
+                        "on-secondary": "#003733",
+                        "background": "#0F0F12",
+                        "surface-bright": "#39393c",
+                        "primary": "#f5a623",
+                        "surface-container-highest": "#353438",
+                        "on-error": "#690005",
+                        "tertiary-fixed": "#c4e7ff",
+                        "on-secondary-container": "#004640",
+                        "on-secondary-fixed": "#00201d",
+                        "secondary": "#3DD6C8",
+                        "primary-fixed-dim": "#ffb955",
+                        "surface-container-low": "#1A1A22",
+                        "on-tertiary-fixed-variant": "#004c69",
+                        "error": "#ffb4ab",
+                        "on-error-container": "#ffdad6",
+                        "on-background": "#e4e1e6",
+                        "on-primary-fixed-variant": "#633f00",
+                        "on-primary-container": "#644000",
+                        "surface-tint": "#ffb955",
+                        "outline": "#9f8e7a",
+                        "on-primary-fixed": "#291800",
+                        "error-container": "#93000a",
+                        "surface-variant": "#353438",
+                        "primary-fixed": "#ffddb4",
+                        "inverse-surface": "#e4e1e6",
+                        "surface-container-high": "#1F1F2A",
+                        "outline-variant": "#2A2A35",
+                        "surface-container-lowest": "#0e0e11",
+                        "secondary-fixed": "#69f8ea",
+                        "secondary-fixed-dim": "#45dccd",
+                        "on-primary": "#452b00",
+                        "on-tertiary": "#00344a",
+                        "tertiary": "#9bd9ff",
+                        "on-tertiary-container": "#004d6a",
+                        "surface-container": "#1f1f22",
+                        "on-secondary-fixed-variant": "#00504a",
+                        "on-tertiary-fixed": "#001e2c",
+                        "secondary-container": "#00bdaf",
+                        "tertiary-container": "#3ac2ff",
+                        "on-surface-variant": "#d7c3ae",
+                        "primary-container": "#f5a623",
+                        "inverse-on-surface": "#303033",
+                        "surface": "#131316",
+                        "inverse-primary": "#835500"
+                    },
+                    fontFamily: {
+                        "headline": ["Syne", "sans-serif"],
+                        "body": ["Geist", "sans-serif"],
+                        "label": ["Inter", "sans-serif"],
+                        "mono": ["DM Mono", "monospace"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0F0F12;
+            color: #e4e1e6;
+        }
+        .glass-panel {
+            background: rgba(31, 31, 42, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .signature-gradient {
+            background: linear-gradient(135deg, #F5A623 0%, #644000 100%);
+        }
+        /* Hide scrollbar */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="font-body selection:bg-primary/30">
+<!-- SideNavBar (Execution from JSON) -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-[#1A1A22] flex flex-col py-8 px-6 gap-y-6 z-50">
+<div class="flex flex-col gap-1 mb-4">
+<span class="text-xl font-bold font-['Syne'] text-[#F5A623] tracking-tighter">FocusLock</span>
+<span class="text-[10px] font-['DM_Mono'] uppercase tracking-[0.2em] text-slate-500">Kinetic Chronometer</span>
+</div>
+<button class="signature-gradient text-on-primary py-3 px-4 rounded-xl font-headline font-bold text-sm tracking-tight active:scale-95 transition-transform duration-200">
+            Start Session
+        </button>
+<div class="flex flex-col gap-y-2 mt-4">
+<!-- Dashboard -->
+<a class="flex items-center gap-3 py-3 px-4 rounded-lg text-slate-500 font-medium hover:text-slate-200 hover:bg-[#1F1F2A] transition-colors duration-200" href="/">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<!-- History (ACTIVE) -->
+<a class="flex items-center gap-3 py-3 px-4 rounded-lg text-[#F5A623] font-bold border-r-2 border-[#F5A623] bg-gradient-to-r from-[#F5A623]/10 to-transparent transition-colors duration-200" href="/history">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="text-sm">History</span>
+</a>
+<!-- Devices -->
+<a class="flex items-center gap-3 py-3 px-4 rounded-lg text-slate-500 font-medium hover:text-slate-200 hover:bg-[#1F1F2A] transition-colors duration-200" href="/devices">
+<span class="material-symbols-outlined" data-icon="devices">devices</span>
+<span class="text-sm">Devices</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-3 py-3 px-4 rounded-lg text-slate-500 font-medium hover:text-slate-200 hover:bg-[#1F1F2A] transition-colors duration-200" href="/settings">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+</div>
+<div class="mt-auto flex items-center gap-3 p-4 rounded-xl bg-[#0F0F12]">
+<img alt="User Profile" class="w-8 h-8 rounded-full grayscale hover:grayscale-0 transition-all" data-alt="portrait of a focused professional man in low key dramatic lighting with deep shadows and sharp highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAScBaWzJRpvS0Y5iCX3LsaYLd7smSTRjekUI8xDejkJVeFDEC4SNkMF4b807ZmXZBAakEEl3AV-RhLxXGdPbDV1lhGxUYLsBua7CfLIly2pDXeT2qCbSg3y9WmfdMpc4j6eE0x9ibR5OCMx3S7HrwhuXu5NuoUeg3ZA1iSSoQtyP6JsSTlZuvLRwBoKqBu9oNPEpqxPuyWdiqqOMUerK1nQ4C_OD4B1NgRszz7D6D7SLENHylZT149OWObCZwrt_ec5Z2zMyaZ2p0"/>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-surface">Alex Thorne</span>
+<span class="text-[10px] text-slate-500 uppercase tracking-widest">Premium Tier</span>
+</div>
+</div>
+</nav>
+<!-- TopNavBar (Execution from JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-[#0F0F12]/80 backdrop-blur-md flex justify-between items-center px-10 h-20">
+<div class="flex flex-col">
+<h1 class="font-['Syne'] font-extrabold text-lg tracking-tight uppercase text-on-surface">SESSION ARCHIVE</h1>
+<span class="text-[10px] font-mono text-primary tracking-widest">128 TOTAL HOURS LOGGED</span>
+</div>
+<div class="flex items-center gap-8">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-slate-500 group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="search">search</span>
+</span>
+<input class="bg-[#1A1A22] border-none text-[10px] font-mono tracking-widest py-2 pl-10 pr-4 rounded-lg w-64 focus:ring-1 focus:ring-primary/40 placeholder:text-slate-600 transition-all" placeholder="FILTER LOGS..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-400 hover:text-[#F5A623] transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-[#F5A623] transition-opacity">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-10 pb-12 min-h-screen">
+<!-- Summary Dashboard Row -->
+<div class="grid grid-cols-4 gap-8 mb-10">
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col gap-4">
+<span class="text-slate-500 text-[10px] font-mono uppercase tracking-widest">Efficiency</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-mono text-primary">94.2</span>
+<span class="text-xs text-secondary">%</span>
+</div>
+<div class="h-1 w-full bg-[#0F0F12] rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[94.2%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col gap-4">
+<span class="text-slate-500 text-[10px] font-mono uppercase tracking-widest">Deep Work</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-mono text-primary">42:15</span>
+<span class="text-xs text-slate-500">HRS</span>
+</div>
+<span class="text-[10px] text-secondary font-semibold">+12% vs last month</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col gap-4">
+<span class="text-slate-500 text-[10px] font-mono uppercase tracking-widest">Interruptions</span>
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-mono text-primary">08</span>
+</div>
+<span class="text-[10px] text-error font-semibold">-2% improvement</span>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col gap-4 border border-primary/10">
+<span class="text-slate-500 text-[10px] font-mono uppercase tracking-widest">Active Status</span>
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_#3DD6C8] animate-pulse"></div>
+<span class="text-sm font-headline font-bold">MONITORING</span>
+</div>
+<span class="text-[10px] text-slate-500 font-mono tracking-tighter">System clock synchronized</span>
+</div>
+</div>
+<!-- Session History Table Container -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden mb-8">
+<div class="px-8 py-6 flex justify-between items-center bg-[#1F1F2A]/40">
+<h3 class="font-headline font-bold text-lg tracking-tight">Recent Sessions</h3>
+<div class="flex gap-2">
+<button class="bg-[#0F0F12] p-2 rounded-lg text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="filter_list">filter_list</span>
+</button>
+<button class="bg-[#0F0F12] p-2 rounded-lg text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#0F0F12]/30">
+<th class="px-8 py-4 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Date</th>
+<th class="px-8 py-4 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Session Name</th>
+<th class="px-8 py-4 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500">Duration</th>
+<th class="px-8 py-4 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-500 text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#2A2A35]/20">
+<!-- Entry 1 -->
+<tr class="hover:bg-[#1F1F2A] transition-colors group">
+<td class="px-8 py-6 font-body text-sm text-slate-400">Oct 24, 2023</td>
+<td class="px-8 py-6 font-headline font-bold text-on-surface">Deep Architecture Sprint</td>
+<td class="px-8 py-6 font-mono text-primary">02:45:00</td>
+<td class="px-8 py-6 text-right">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20">
+                                Complete
+                            </span>
+</td>
+</tr>
+<!-- Entry 2 -->
+<tr class="hover:bg-[#1F1F2A] transition-colors group">
+<td class="px-8 py-6 font-body text-sm text-slate-400">Oct 23, 2023</td>
+<td class="px-8 py-6 font-headline font-bold text-on-surface">Neural Network Refinement</td>
+<td class="px-8 py-6 font-mono text-primary">00:15:32</td>
+<td class="px-8 py-6 text-right">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-error/10 text-error border border-error/20">
+                                Interrupted
+                            </span>
+</td>
+</tr>
+<!-- Entry 3 -->
+<tr class="hover:bg-[#1F1F2A] transition-colors group">
+<td class="px-8 py-6 font-body text-sm text-slate-400">Oct 22, 2023</td>
+<td class="px-8 py-6 font-headline font-bold text-on-surface">Strategic Planning Block</td>
+<td class="px-8 py-6 font-mono text-primary">01:30:00</td>
+<td class="px-8 py-6 text-right">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20">
+                                Complete
+                            </span>
+</td>
+</tr>
+<!-- Entry 4 -->
+<tr class="hover:bg-[#1F1F2A] transition-colors group">
+<td class="px-8 py-6 font-body text-sm text-slate-400">Oct 22, 2023</td>
+<td class="px-8 py-6 font-headline font-bold text-on-surface">Interface Design Audit</td>
+<td class="px-8 py-6 font-mono text-primary">00:45:00</td>
+<td class="px-8 py-6 text-right">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20">
+                                Complete
+                            </span>
+</td>
+</tr>
+<!-- Entry 5 -->
+<tr class="hover:bg-[#1F1F2A] transition-colors group">
+<td class="px-8 py-6 font-body text-sm text-slate-400">Oct 21, 2023</td>
+<td class="px-8 py-6 font-headline font-bold text-on-surface">Morning Calibration</td>
+<td class="px-8 py-6 font-mono text-primary">00:25:00</td>
+<td class="px-8 py-6 text-right">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-secondary/10 text-secondary border border-secondary/20">
+                                Complete
+                            </span>
+</td>
+</tr>
+<!-- Entry 6 -->
+<tr class="hover:bg-[#1F1F2A] transition-colors group">
+<td class="px-8 py-6 font-body text-sm text-slate-400">Oct 20, 2023</td>
+<td class="px-8 py-6 font-headline font-bold text-on-surface">Client Review Session</td>
+<td class="px-8 py-6 font-mono text-primary">00:08:12</td>
+<td class="px-8 py-6 text-right">
+<span class="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-error/10 text-error border border-error/20">
+                                Interrupted
+                            </span>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="px-8 py-6 flex justify-between items-center bg-[#1F1F2A]/20">
+<span class="text-xs text-slate-500 font-mono">SHOWING 6 OF 248 SESSIONS</span>
+<div class="flex gap-4">
+<button class="text-xs font-headline font-bold text-slate-500 hover:text-primary transition-colors">PREVIOUS</button>
+<button class="text-xs font-headline font-bold text-primary">NEXT PAGE</button>
+</div>
+</div>
+</div>
+<!-- Bento Secondary View -->
+<div class="grid grid-cols-3 gap-8">
+<div class="col-span-2 bg-surface-container-low p-8 rounded-xl flex items-center justify-between overflow-hidden relative">
+<div class="z-10 flex flex-col gap-2">
+<h4 class="font-headline font-bold text-xl">Chronometer Efficiency</h4>
+<p class="text-slate-500 text-sm max-w-sm">Your deep work endurance has increased by 14% over the last 30 days. Maintain this momentum for optimal lock-in.</p>
+</div>
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-[#0F0F12]" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="50" stroke-width="8"></circle>
+</svg>
+<span class="absolute font-mono text-xl text-primary">85%</span>
+</div>
+</div>
+<div class="bg-primary/5 border border-primary/10 p-8 rounded-xl flex flex-col justify-between group cursor-pointer hover:bg-primary/10 transition-colors">
+<div class="flex flex-col gap-2">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="auto_awesome">auto_awesome</span>
+<h4 class="font-headline font-bold text-lg">AI Optimization</h4>
+</div>
+<p class="text-[10px] font-mono text-slate-400 uppercase tracking-widest leading-relaxed">System ready to generate focus report</p>
+</div>
+</div>
+</main>
+<!-- Contextual Pulse Element -->
+<div class="fixed bottom-8 right-8 flex items-center gap-3 bg-surface-container-high px-4 py-2 rounded-full shadow-2xl border border-outline-variant/20">
+<div class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#3DD6C8] animate-pulse"></div>
+<span class="text-[10px] font-mono tracking-widest text-on-surface uppercase">Live Sync: Active</span>
+</div>
+</body></html>

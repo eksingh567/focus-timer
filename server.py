@@ -42,6 +42,21 @@ def dashboard() -> str:
     return render_template("dash.html")
 
 
+@app.route("/history")
+def history() -> str:
+    return render_template("history.html")
+
+
+@app.route("/devices")
+def devices() -> str:
+    return render_template("devices.html")
+
+
+@app.route("/settings")
+def settings() -> str:
+    return render_template("settings.html")
+
+
 @app.route("/mobile/home")
 def mobile_home() -> str:
     return render_template("home.html")

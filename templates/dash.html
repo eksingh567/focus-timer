@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FocusLock | Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&amp;family=Geist:wght@300;400;500;600&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ffc880",
+                        "primary-container": "#f5a623",
+                        "on-primary": "#452b00",
+                        "on-primary-container": "#644000",
+                        "secondary": "#45dccd",
+                        "secondary-container": "#00bdaf",
+                        "on-secondary": "#003733",
+                        "background": "#0F0F12",
+                        "surface": "#131316",
+                        "surface-container-low": "#1A1A22",
+                        "surface-container-high": "#1F1F2A",
+                        "surface-container-lowest": "#0e0e11",
+                        "outline-variant": "#2A2A35",
+                        "on-surface": "#e4e1e6",
+                        "on-surface-variant": "#d7c3ae"
+                    },
+                    fontFamily: {
+                        "syne": ["Syne", "sans-serif"],
+                        "geist": ["Geist", "sans-serif"],
+                        "mono": ["DM Mono", "monospace"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0F0F12;
+            color: #e4e1e6;
+            font-family: 'Geist', sans-serif;
+        }
+        .font-syne { font-family: 'Syne', sans-serif; }
+        .font-mono { font-family: 'DM Mono', monospace; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for cockpit feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0F0F12; }
+        ::-webkit-scrollbar-thumb { background: #2A2A35; border-radius: 10px; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SIDEBAR (JSON: SideNavBar) -->
+<!-- style_component_shape: h-screen w-[240px] sticky top-0 left-0 flex flex-col -->
+<!-- style_bg_color: bg-[#1A1A22] -->
+<aside class="h-screen w-[240px] sticky top-0 left-0 flex flex-col bg-[#1A1A22] border-r border-[#2A2A35]/40 py-8 px-6 justify-between">
+<div class="space-y-10">
+<!-- Brand Logo -->
+<!-- style_brand_logo: text-2xl font-bold tracking-tighter font-syne text-white [&_span]:text-amber-500 -->
+<div class="text-2xl font-bold tracking-tighter font-syne text-white">
+                Focus<span class="text-amber-500">Lock</span>
+<p class="text-[10px] uppercase tracking-[0.2em] text-slate-500 font-geist mt-1">Precision Control</p>
+</div>
+<!-- Nav Items -->
+<nav class="flex flex-col gap-2">
+<!-- Dashboard (Active) -->
+<!-- style_active_navigation: text-amber-500 font-bold border-r-2 border-amber-500 bg-amber-500/5 -->
+<a class="flex items-center gap-3 py-3 px-4 rounded-lg text-amber-500 font-bold border-r-2 border-amber-500 bg-amber-500/5 transition-all" href="/">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="font-geist">Dashboard</span>
+</a>
+<!-- Others (Inactive) -->
+<!-- style_inactive_navigation: text-slate-400 font-medium hover:text-white transition-colors -->
+<a class="flex items-center gap-3 py-3 px-4 rounded-lg text-slate-400 font-medium hover:text-white hover:bg-[#1F1F2A] transition-all" href="/history">
+<span class="material-symbols-outlined text-xl">history</span>
+<span class="font-geist">History</span>
+</a>
+<a class="flex items-center gap-3 py-3 px-4 rounded-lg text-slate-400 font-medium hover:text-white hover:bg-[#1F1F2A] transition-all" href="/devices">
+<span class="material-symbols-outlined text-xl">devices</span>
+<span class="font-geist">Devices</span>
+</a>
+<a class="flex items-center gap-3 py-3 px-4 rounded-lg text-slate-400 font-medium hover:text-white hover:bg-[#1F1F2A] transition-all" href="/settings">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="font-geist">Settings</span>
+</a>
+</nav>
+</div>
+<!-- Connected Devices Panel -->
+<div class="space-y-4">
+<div class="bg-[#0F0F12] rounded-xl p-4 border border-[#2A2A35]/60">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[10px] font-bold text-slate-500 tracking-wider uppercase">Link Status</span>
+<!-- Focus Pulse -->
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse shadow-[0_0_8px_rgba(61,214,200,0.6)]"></span>
+<span class="text-[10px] font-mono text-secondary">LIVE</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">smartphone</span>
+<div class="overflow-hidden">
+<p class="text-xs font-semibold text-white truncate">iPhone 14</p>
+<p class="text-[10px] text-slate-500">Connected</p>
+</div>
+</div>
+</div>
+<!-- Footer Tabs -->
+<div class="flex flex-col gap-1 pt-4 border-t border-[#2A2A35]/40">
+<button class="flex items-center gap-3 py-2 text-slate-400 hover:text-white text-sm transition-colors">
+<span class="material-symbols-outlined text-lg">help</span>
+<span>Support</span>
+</button>
+<button class="flex items-center gap-3 py-2 text-slate-400 hover:text-white text-sm transition-colors">
+<span class="material-symbols-outlined text-lg">person</span>
+<span>Account</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- MAIN AREA -->
+<main class="flex-1 flex flex-col min-h-screen bg-[#0F0F12]">
+<!-- TopAppBar (JSON: TopNavBar) -->
+<header class="flex justify-between items-center w-full px-10 h-20 bg-[#0F0F12]/80 backdrop-blur-xl border-b border-[#2A2A35]/40 z-40 sticky top-0">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-syne font-bold text-white tracking-tight">Dashboard</h1>
+<nav class="flex gap-6">
+<a class="text-amber-500 border-b-2 border-amber-500 pb-2 text-sm font-medium" href="#">Overview</a>
+<a class="text-slate-500 hover:text-slate-200 text-sm font-medium transition-colors" href="#">Analytics</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-white cursor-pointer transition-colors">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-amber-500 rounded-full border-2 border-[#0F0F12]"></span>
+</div>
+<span class="material-symbols-outlined text-slate-400 hover:text-white cursor-pointer transition-colors">settings_slow_motion</span>
+<div class="w-10 h-10 rounded-lg overflow-hidden border border-amber-500/20">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man with a focused expression, warm cinematic lighting on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBL5ng0JLMYPHh_A3c6Wja8kBlwBjCW1l9fx4ALPY-i7RY0ezSbLcHlxulpofYrM-K7VCv1iY-oFeezDEhNAcCIZN2ai_yGMRUDGcGv43N5Eq8gZt2UfsTSO_x49-MGBzLSo5UHIg47xW7YDf3liWdsiSLXj6SjDSHB0BJg1Me3WxRM0_GCPnKv8TQ7Kjh5Atqf7BEPjQcwCURbtnuUUhBQnKCtJX_rOl-uyqAijDvXU1TJAcJsxImQv7rXF-xx-D1zzoI17rzifj8"/>
+</div>
+</div>
+</header>
+<!-- Content Scroll Area -->
+<div class="flex-1 p-10 space-y-16">
+<!-- 1. TIMER SETUP CARD -->
+<section class="flex justify-center items-center">
+<div class="w-full max-w-[560px] bg-surface-container-low rounded-2xl p-8 border border-outline-variant/40 shadow-2xl shadow-black/40">
+<div class="mb-8">
+<span class="text-[11px] font-bold text-slate-500 tracking-[0.15em] uppercase font-geist">New Session</span>
+<h2 class="text-3xl font-syne font-bold text-white mt-1">Ready for Focus?</h2>
+</div>
+<form class="space-y-8">
+<!-- Session Name -->
+<div class="space-y-2">
+<label class="text-xs font-semibold text-slate-400 ml-1">Session Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all" placeholder="Deep Work Block #1" type="text"/>
+</div>
+<!-- Duration Selector -->
+<div class="space-y-4">
+<label class="text-xs font-semibold text-slate-400 ml-1">Duration</label>
+<div class="flex flex-wrap gap-2 p-1.5 bg-surface-container-lowest rounded-2xl border border-outline-variant/20">
+<button class="flex-1 py-2.5 px-2 text-xs font-bold font-mono rounded-xl bg-primary-container text-on-primary shadow-lg shadow-primary-container/20 transition-all" type="button">25M</button>
+<button class="flex-1 py-2.5 px-2 text-xs font-bold font-mono rounded-xl text-slate-400 hover:text-white hover:bg-surface-container-high transition-all" type="button">45M</button>
+<button class="flex-1 py-2.5 px-2 text-xs font-bold font-mono rounded-xl text-slate-400 hover:text-white hover:bg-surface-container-high transition-all" type="button">60M</button>
+<button class="flex-1 py-2.5 px-2 text-xs font-bold font-mono rounded-xl text-slate-400 hover:text-white hover:bg-surface-container-high transition-all" type="button">90M</button>
+<button class="flex-1 py-2.5 px-2 text-xs font-bold font-mono rounded-xl text-slate-400 hover:text-white hover:bg-surface-container-high transition-all" type="button">Custom</button>
+</div>
+<!-- Custom Duration Inputs -->
+<div class="flex items-center justify-center gap-4 py-4 px-6 bg-surface-container-high/50 rounded-xl border border-outline-variant/20">
+<div class="text-center">
+<input class="w-12 bg-transparent border-none text-2xl font-mono text-white text-center p-0 focus:ring-0" type="text" value="00"/>
+<p class="text-[9px] uppercase text-slate-500 font-bold mt-1">HH</p>
+</div>
+<span class="text-2xl font-mono text-slate-600 mb-4">:</span>
+<div class="text-center">
+<input class="w-12 bg-transparent border-none text-2xl font-mono text-primary-container text-center p-0 focus:ring-0" type="text" value="25"/>
+<p class="text-[9px] uppercase text-slate-500 font-bold mt-1">MM</p>
+</div>
+<span class="text-2xl font-mono text-slate-600 mb-4">:</span>
+<div class="text-center">
+<input class="w-12 bg-transparent border-none text-2xl font-mono text-white text-center p-0 focus:ring-0" type="text" value="00"/>
+<p class="text-[9px] uppercase text-slate-500 font-bold mt-1">SS</p>
+</div>
+</div>
+</div>
+<!-- Motivational Context -->
+<div class="space-y-2">
+<label class="text-xs font-semibold text-slate-400 ml-1">Context</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant/40 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all resize-none" placeholder="What are you working on?" rows="2"></textarea>
+</div>
+<!-- Options Toggles -->
+<div class="space-y-4 pt-2">
+<div class="flex items-start justify-between">
+<div>
+<p class="text-sm font-semibold text-white">Allow Break</p>
+<p class="text-xs text-slate-500 mt-0.5">5 min break every 25 min</p>
+</div>
+<button class="w-10 h-5 bg-slate-800 rounded-full relative transition-colors duration-200 focus:outline-none ring-offset-2 ring-offset-[#0F0F12] focus:ring-2 focus:ring-primary" type="button">
+<span class="absolute left-1 top-1 w-3 h-3 bg-slate-500 rounded-full transition-transform duration-200"></span>
+</button>
+</div>
+<div class="flex items-start justify-between">
+<div>
+<p class="text-sm font-semibold text-white">Override PIN</p>
+<p class="text-xs text-slate-500 mt-0.5">Require code to exit early</p>
+</div>
+<button class="w-10 h-5 bg-primary/20 rounded-full relative transition-colors duration-200 focus:outline-none ring-offset-2 ring-offset-[#0F0F12] focus:ring-2 focus:ring-primary" type="button">
+<span class="absolute right-1 top-1 w-3 h-3 bg-primary-container rounded-full transition-transform duration-200"></span>
+</button>
+</div>
+<!-- PIN Input (Hidden/Revealed by toggle) -->
+<div class="flex justify-between gap-2 mt-4">
+<input class="w-12 h-14 bg-surface-container-lowest border border-outline-variant/40 rounded-lg text-center font-mono text-xl text-primary-container focus:border-primary focus:ring-1 focus:ring-primary outline-none" maxlength="1" type="password"/>
+<input class="w-12 h-14 bg-surface-container-lowest border border-outline-variant/40 rounded-lg text-center font-mono text-xl text-primary-container focus:border-primary focus:ring-1 focus:ring-primary outline-none" maxlength="1" type="password"/>
+<input class="w-12 h-14 bg-surface-container-lowest border border-outline-variant/40 rounded-lg text-center font-mono text-xl text-primary-container focus:border-primary focus:ring-1 focus:ring-primary outline-none" maxlength="1" type="password"/>
+<input class="w-12 h-14 bg-surface-container-lowest border border-outline-variant/40 rounded-lg text-center font-mono text-xl text-primary-container focus:border-primary focus:ring-1 focus:ring-primary outline-none" maxlength="1" type="password"/>
+<input class="w-12 h-14 bg-surface-container-lowest border border-outline-variant/40 rounded-lg text-center font-mono text-xl text-primary-container focus:border-primary focus:ring-1 focus:ring-primary outline-none" maxlength="1" type="password"/>
+<input class="w-12 h-14 bg-surface-container-lowest border border-outline-variant/40 rounded-lg text-center font-mono text-xl text-primary-container focus:border-primary focus:ring-1 focus:ring-primary outline-none" maxlength="1" type="password"/>
+</div>
+</div>
+<!-- CTA -->
+<div class="flex flex-col gap-3">
+    <button id="startBtn" class="w-full bg-gradient-to-br from-primary-container to-[#644000] text-on-primary font-syne font-extrabold py-4 rounded-xl flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-primary-container/10" type="submit">
+        <span class="material-symbols-outlined font-normal">lock</span>
+        START LOCK SESSION
+    </button>
+    <button id="unlockBtn" class="w-full bg-transparent border border-error/50 text-error font-syne font-extrabold py-4 rounded-xl flex items-center justify-center gap-3 hover:bg-error/10 active:scale-[0.98] transition-all hidden" type="button">
+        <span class="material-symbols-outlined font-normal">lock_open</span>
+        UNLOCK DEVICE
+    </button>
+    <div id="statusText" class="text-center font-mono text-xs text-slate-400 mt-2">Ready</div>
+</div>
+</form>
+</div>
+</section>
+<!-- 2. SESSION HISTORY PANEL -->
+<section class="max-w-4xl mx-auto">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xl font-syne font-bold text-white">Recent Activity</h3>
+<button class="text-sm font-geist font-medium text-amber-500 hover:underline">View full history</button>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<!-- Session Item 1 -->
+<div class="flex items-center justify-between p-6 bg-surface-container-low rounded-2xl border border-outline-variant/40 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h4 class="font-syne font-bold text-white">UI Wireframing</h4>
+<p class="text-xs text-slate-500 mt-1 font-geist">Oct 24, 2023 • 09:15 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-12">
+<div class="text-right">
+<p class="text-lg font-mono text-white">45:00</p>
+<p class="text-[10px] uppercase font-bold text-slate-500">Duration</p>
+</div>
+<div class="px-3 py-1 bg-secondary/10 rounded-full border border-secondary/20">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-wider">Completed</span>
+</div>
+</div>
+</div>
+<!-- Session Item 2 -->
+<div class="flex items-center justify-between p-6 bg-surface-container-low rounded-2xl border border-outline-variant/40 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 rounded-xl bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-2xl">cancel</span>
+</div>
+<div>
+<h4 class="font-syne font-bold text-white">Market Research</h4>
+<p class="text-xs text-slate-500 mt-1 font-geist">Oct 23, 2023 • 02:30 PM</p>
+</div>
+</div>
+<div class="flex items-center gap-12">
+<div class="text-right">
+<p class="text-lg font-mono text-white">12:44</p>
+<p class="text-[10px] uppercase font-bold text-slate-500">Duration</p>
+</div>
+<div class="px-3 py-1 bg-error/10 rounded-full border border-error/20">
+<span class="text-[10px] font-bold text-error uppercase tracking-wider">Interrupted</span>
+</div>
+</div>
+</div>
+<!-- Session Item 3 -->
+<div class="flex items-center justify-between p-6 bg-surface-container-low rounded-2xl border border-outline-variant/40 hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h4 class="font-syne font-bold text-white">Technical Documentation</h4>
+<p class="text-xs text-slate-500 mt-1 font-geist">Oct 23, 2023 • 10:00 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-12">
+<div class="text-right">
+<p class="text-lg font-mono text-white">90:00</p>
+<p class="text-[10px] uppercase font-bold text-slate-500">Duration</p>
+</div>
+<div class="px-3 py-1 bg-secondary/10 rounded-full border border-secondary/20">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-wider">Completed</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Background Decorative Gradient -->
+<div class="fixed top-0 right-0 -z-10 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px]"></div>
+<div class="fixed bottom-0 left-[240px] -z-10 w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[100px]"></div>
+<script>
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const mmInput = document.querySelectorAll('input.text-2xl')[1];
+            const minutes = parseInt(mmInput ? mmInput.value : '25', 10);
+            await fetch('/start_timer', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({minutes})
+            });
+            refresh();
+        });
+    }
+
+    const unlockBtn = document.getElementById('unlockBtn');
+    if(unlockBtn) {
+        unlockBtn.addEventListener('click', async () => {
+            await fetch('/unlock', {method: 'POST'});
+            refresh();
+        });
+    }
+
+    async function refresh() {
+        try {
+            const r = await fetch('/status');
+            const data = await r.json();
+            const statusText = document.getElementById('statusText');
+            const startBtn = document.getElementById('startBtn');
+            const unlockBtn = document.getElementById('unlockBtn');
+            const sidebarStatus = document.querySelector('.text-xs.font-semibold.text-white.truncate');
+            
+            if (sidebarStatus) sidebarStatus.innerText = data.mode === 'lock' ? 'iPhone 14 (Locked)' : 'iPhone 14 (Unlocked)';
+
+            if (data.mode === 'lock') {
+                if(statusText) statusText.innerText = `Focus Session Active - Remaining: ${data.seconds_remaining}s`;
+                if(startBtn) startBtn.classList.add('hidden');
+                if(unlockBtn) unlockBtn.classList.remove('hidden');
+            } else {
+                if(statusText) statusText.innerText = `Ready to lock`;
+                if(startBtn) startBtn.classList.remove('hidden');
+                if(unlockBtn) unlockBtn.classList.add('hidden');
+            }
+        } catch (e) {
+            console.error('Failed to parse status', e);
+        }
+    }
+
+    setInterval(refresh, 1000);
+    refresh();
+</script>
+</body></html>

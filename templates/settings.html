@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FocusLock | Instrument Panel</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&amp;family=Geist:wght@300;400;600&amp;family=DM+Mono:wght@400;500&amp;family=Space+Grotesk:wght@300;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-bright": "#39393c",
+              "tertiary-container": "#3ac2ff",
+              "secondary-fixed-dim": "#45dccd",
+              "surface-container-highest": "#353438",
+              "secondary": "#45dccd",
+              "on-surface-variant": "#d7c3ae",
+              "inverse-primary": "#835500",
+              "on-secondary-fixed-variant": "#00504a",
+              "on-primary-container": "#644000",
+              "surface": "#131316",
+              "tertiary-fixed-dim": "#7cd0ff",
+              "surface-tint": "#ffb955",
+              "surface-container-lowest": "#0e0e11",
+              "inverse-on-surface": "#303033",
+              "secondary-container": "#00bdaf",
+              "secondary-fixed": "#69f8ea",
+              "error-container": "#93000a",
+              "on-error": "#690005",
+              "tertiary": "#9bd9ff",
+              "surface-container-high": "#2a2a2d",
+              "on-primary": "#452b00",
+              "on-background": "#e4e1e6",
+              "primary": "#ffc880",
+              "on-secondary": "#003733",
+              "inverse-surface": "#e4e1e6",
+              "surface-dim": "#131316",
+              "on-tertiary": "#00344a",
+              "on-tertiary-container": "#004d6a",
+              "surface-variant": "#353438",
+              "on-tertiary-fixed-variant": "#004c69",
+              "on-secondary-fixed": "#00201d",
+              "surface-container": "#1f1f22",
+              "on-surface": "#e4e1e6",
+              "on-primary-fixed-variant": "#633f00",
+              "surface-container-low": "#1b1b1e",
+              "on-error-container": "#ffdad6",
+              "tertiary-fixed": "#c4e7ff",
+              "on-primary-fixed": "#291800",
+              "on-secondary-container": "#004640",
+              "background": "#131316",
+              "error": "#ffb4ab",
+              "primary-fixed-dim": "#ffb955",
+              "outline": "#9f8e7a",
+              "outline-variant": "#524534",
+              "on-tertiary-fixed": "#001e2c",
+              "primary-fixed": "#ffddb4",
+              "primary-container": "#f5a623"
+            },
+            fontFamily: {
+              "headline": ["Syne", "sans-serif"],
+              "body": ["Geist", "sans-serif"],
+              "label": ["Geist", "sans-serif"],
+              "mono": ["DM Mono", "monospace"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(31, 31, 42, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #f5a623 0%, #644000 100%);
+        }
+        .ghost-border {
+            border: 1px solid rgba(82, 69, 52, 0.4);
+        }
+        .focus-pulse {
+            animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.9); }
+        }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="bg-[#0F0F12] text-on-surface font-body selection:bg-primary/30 selection:text-primary overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-8 px-4 gap-y-2 bg-[#1A1A22] w-64 border-r border-white/5 font-['Geist'] text-sm tracking-wide">
+<div class="mb-10 px-2 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-xl" data-icon="lock">lock</span>
+</div>
+<div>
+<h1 class="font-['Syne'] text-xl font-extrabold text-amber-500">FocusLock</h1>
+<p class="text-[10px] text-slate-500 uppercase tracking-[0.2em]">Instrument Panel</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-300 hover:bg-[#1F1F2A] transition-colors rounded-lg group" href="/">
+<span class="material-symbols-outlined text-lg" data-icon="grid_view">grid_view</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-300 hover:bg-[#1F1F2A] transition-colors rounded-lg group" href="/history">
+<span class="material-symbols-outlined text-lg" data-icon="history">history</span>
+<span>History</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-300 hover:bg-[#1F1F2A] transition-colors rounded-lg group" href="/devices">
+<span class="material-symbols-outlined text-lg" data-icon="devices">devices</span>
+<span>Devices</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-amber-500 font-bold bg-amber-500/10 rounded-lg group" href="/settings">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-2">
+<div class="bg-[#1F1F2A] rounded-xl p-4 ghost-border">
+<p class="text-xs text-slate-400 mb-2">System Status</p>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary focus-pulse shadow-[0_0_8px_rgba(69,220,205,0.6)]"></div>
+<span class="font-mono text-[11px] text-secondary tracking-widest">ENCRYPTED_LINK_ACTIVE</span>
+</div>
+</div>
+<button class="w-full mt-4 primary-gradient text-on-primary font-bold py-3 rounded-xl transition-transform active:scale-95 shadow-lg shadow-primary/10">
+                    Upgrade to Pro
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 h-full overflow-y-auto bg-[#0F0F12]">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-8 h-16 sticky top-0 z-50 bg-[#0F0F12]/80 backdrop-blur-md border-b border-white/5">
+<div class="flex items-center gap-4">
+<h2 class="font-['Syne'] text-2xl font-bold tracking-tight text-slate-100">Settings</h2>
+<div class="h-4 w-[1px] bg-outline-variant/30"></div>
+<p class="text-xs font-mono text-slate-500 uppercase tracking-widest">v4.2.0-stable</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer transition-colors p-2" data-icon="notifications">notifications</span>
+<div class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full border-2 border-[#0F0F12]"></div>
+</div>
+<span class="material-symbols-outlined text-slate-400 hover:text-primary cursor-pointer transition-colors p-2" data-icon="settings_input_component">settings_input_component</span>
+<div class="flex items-center gap-3 pl-4 ml-2 border-l border-white/5">
+<img alt="User profile avatar" class="w-8 h-8 rounded-lg object-cover ghost-border" data-alt="Close up portrait of a professional man with modern glasses in soft studio lighting with dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjdwAE8Mo5ana4cwMcSgRmQ6HxcvEEUN_nTjj9vpHzqRdsOuQbhl4Zu1O8OnHOsB9wr_uZ4V_SKRFWwI7GW0PAdUS4OggwVZuUurgoz4xPPrJhb8U8f3_6Y9yPHAYRXnwvJRWPZMumxSHFc-ZdPhWtMY4FvWfMsK4ROe-S1WQkNwhQbecT5dFyVRFBHVsHOn09X8Pbm01l8OY3KxMWTCcaEpyYkiNHnjn57XQA4Sdk4gYSqXt87-mGV7y5MSxXtnzNYbkOLxBYmZA"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-8 max-w-6xl mx-auto">
+<div class="grid grid-cols-12 gap-6">
+<!-- Timer Preferences (Large Bento Card) -->
+<section class="col-span-12 lg:col-span-8 bg-[#1A1A22] rounded-2xl p-8 border border-white/5 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[100px] -mr-32 -mt-32"></div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-10">
+<div>
+<h3 class="font-headline text-2xl font-bold text-slate-100 mb-1">Timer Preferences</h3>
+<p class="text-sm text-slate-500">Configure your optimal deep-work cadence.</p>
+</div>
+<span class="material-symbols-outlined text-primary/40 text-4xl" data-icon="timer">timer</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<!-- Custom Durations -->
+<div>
+<label class="font-label font-semibold text-xs text-slate-500 uppercase tracking-widest mb-4 block">Preset Intervals</label>
+<div class="relative group">
+<button class="w-full glass-panel ghost-border rounded-xl px-4 py-4 flex justify-between items-center text-on-surface hover:border-primary/40 transition-all">
+<div class="flex items-center gap-3">
+<span class="font-mono text-xl text-primary">45</span>
+<span class="text-sm text-slate-400 font-body">Minutes Focused</span>
+</div>
+<span class="material-symbols-outlined text-slate-500" data-icon="expand_more">expand_more</span>
+</button>
+<!-- Mock Dropdown -->
+<div class="hidden group-focus-within:block absolute top-full left-0 w-full mt-2 glass-panel ghost-border rounded-xl z-20 overflow-hidden">
+<div class="px-4 py-3 hover:bg-white/5 cursor-pointer flex justify-between items-center border-b border-white/5">
+<span class="font-mono text-primary">25:00</span>
+<span class="text-xs text-slate-500 uppercase">Pomodoro</span>
+</div>
+<div class="px-4 py-3 bg-primary/10 cursor-pointer flex justify-between items-center border-b border-white/5">
+<span class="font-mono text-primary font-bold">45:00</span>
+<span class="text-xs text-slate-500 uppercase">Standard</span>
+</div>
+<div class="px-4 py-3 hover:bg-white/5 cursor-pointer flex justify-between items-center">
+<span class="font-mono text-primary">60:00</span>
+<span class="text-xs text-slate-500 uppercase">Deep Work</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Break Sliders -->
+<div>
+<div class="flex justify-between items-center mb-4">
+<label class="font-label font-semibold text-xs text-slate-500 uppercase tracking-widest">Break Interval</label>
+<span class="font-mono text-secondary">10m</span>
+</div>
+<input class="w-full h-1 bg-[#2A2A35] rounded-full appearance-none cursor-pointer accent-secondary transition-all" type="range" value="10"/>
+<div class="flex justify-between mt-2">
+<span class="text-[10px] font-mono text-slate-600">5M</span>
+<span class="text-[10px] font-mono text-slate-600">30M</span>
+</div>
+<div class="mt-8 flex justify-between items-center mb-4">
+<label class="font-label font-semibold text-xs text-slate-500 uppercase tracking-widest">Long Break Delay</label>
+<span class="font-mono text-secondary">4 Cycles</span>
+</div>
+<input class="w-full h-1 bg-[#2A2A35] rounded-full appearance-none cursor-pointer accent-secondary" type="range" value="40"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Notifications (Smaller Card) -->
+<section class="col-span-12 lg:col-span-4 bg-[#1A1A22] rounded-2xl p-8 border border-white/5">
+<h3 class="font-headline text-xl font-bold text-slate-100 mb-6">Notifications</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between p-4 bg-[#1F1F2A] rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400" data-icon="volume_up">volume_up</span>
+<div>
+<p class="text-sm font-semibold">Sound Alerts</p>
+<p class="text-[11px] text-slate-500 uppercase tracking-tighter">Binaural Tones</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-[#2A2A35] rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 bg-[#1F1F2A] rounded-xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400" data-icon="monitor">monitor</span>
+<div>
+<p class="text-sm font-semibold">Desktop Alerts</p>
+<p class="text-[11px] text-slate-500 uppercase tracking-tighter">Push Notifications</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-[#2A2A35] rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 bg-[#1F1F2A] rounded-xl opacity-50">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400" data-icon="mail">mail</span>
+<div>
+<p class="text-sm font-semibold">Daily Brief</p>
+<p class="text-[11px] text-slate-500 uppercase tracking-tighter">Email Recap</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-not-allowed">
+<input class="sr-only peer" disabled="" type="checkbox"/>
+<div class="w-11 h-6 bg-[#2A2A35] rounded-full peer after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-slate-500 after:rounded-full after:h-5 after:w-5"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- Lock Overrides (Asymmetric Mid Card) -->
+<section class="col-span-12 lg:col-span-12 bg-[#1A1A22] rounded-2xl p-8 border border-white/5 grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+<div class="md:col-span-1">
+<h3 class="font-headline text-2xl font-bold text-slate-100 mb-2">Lock Overrides</h3>
+<p class="text-sm text-slate-500 mb-6 leading-relaxed">Emergency access protocols. Strict Mode disables all bypasses until timer completion.</p>
+<div class="flex items-center gap-4 p-4 rounded-xl bg-primary/5 border border-primary/20">
+<div class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary/10">
+<span class="material-symbols-outlined text-primary" data-icon="gpp_maybe">gpp_maybe</span>
+</div>
+<div>
+<p class="text-xs font-bold text-primary uppercase tracking-widest">Strict Mode</p>
+<p class="text-[10px] text-slate-400">Cannot be toggled during focus session.</p>
+</div>
+<div class="ml-auto">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-12 h-6 bg-[#2A2A35] rounded-full peer peer-checked:after:translate-x-6 after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-primary after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary/20 peer-checked:shadow-[0_0_12px_rgba(245,166,35,0.3)]"></div>
+</label>
+</div>
+</div>
+</div>
+<div class="md:col-span-2 flex flex-col items-center justify-center space-y-6 md:border-l border-white/5 md:pl-8">
+<label class="font-label font-semibold text-xs text-slate-500 uppercase tracking-[0.3em]">Master Override PIN</label>
+<div class="flex gap-4">
+<input class="w-16 h-20 bg-surface-container-lowest ghost-border rounded-xl text-center text-3xl font-mono text-primary focus:border-primary focus:ring-0 transition-all" maxlength="1" type="password" value="8"/>
+<input class="w-16 h-20 bg-surface-container-lowest ghost-border rounded-xl text-center text-3xl font-mono text-primary focus:border-primary focus:ring-0 transition-all" maxlength="1" type="password" value="3"/>
+<input class="w-16 h-20 bg-surface-container-lowest ghost-border rounded-xl text-center text-3xl font-mono text-primary focus:border-primary focus:ring-0 transition-all" maxlength="1" type="password" value="0"/>
+<input class="w-16 h-20 bg-surface-container-lowest ghost-border rounded-xl text-center text-3xl font-mono text-primary focus:border-primary focus:ring-0 transition-all" maxlength="1" type="password" value="2"/>
+</div>
+<p class="text-xs text-slate-600 font-mono tracking-wide">REQUEST_PIN_RESET_AUTHORIZED: [24H_DELAY]</p>
+</div>
+</section>
+<!-- Advanced Telemetry (Background Aesthetic) -->
+<section class="col-span-12 grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-[#1A1A22] p-6 rounded-xl border border-white/5">
+<p class="text-[10px] text-slate-500 uppercase font-semibold mb-2 tracking-widest">Focus Score</p>
+<p class="font-mono text-3xl text-secondary">92.4%</p>
+<div class="w-full bg-[#2A2A35] h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[92%] shadow-[0_0_8px_rgba(69,220,205,0.4)]"></div>
+</div>
+</div>
+<div class="bg-[#1A1A22] p-6 rounded-xl border border-white/5">
+<p class="text-[10px] text-slate-500 uppercase font-semibold mb-2 tracking-widest">Sessions Total</p>
+<p class="font-mono text-3xl text-slate-100">1,204</p>
+<p class="text-[10px] text-primary mt-2">+12% vs last month</p>
+</div>
+<div class="bg-[#1A1A22] p-6 rounded-xl border border-white/5">
+<p class="text-[10px] text-slate-500 uppercase font-semibold mb-2 tracking-widest">Global Rank</p>
+<p class="font-mono text-3xl text-slate-100">#4,281</p>
+<p class="text-[10px] text-slate-500 mt-2">Top 2% of users</p>
+</div>
+<div class="bg-[#1A1A22] p-6 rounded-xl border border-white/5 flex flex-col justify-center items-center group cursor-pointer hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined text-primary mb-1 transition-transform group-hover:scale-110" data-icon="cloud_sync">cloud_sync</span>
+<p class="text-[10px] text-primary uppercase font-bold tracking-[0.2em]">Sync Data</p>
+</div>
+</section>
+</div>
+<footer class="mt-12 mb-8 flex justify-between items-center text-slate-600 text-[10px] font-mono uppercase tracking-[0.3em]">
+<div>© 2024 FOCUSLOCK SYSTEM INTERFACE</div>
+<div class="flex gap-8">
+<a class="hover:text-primary transition-colors" href="#">Privacy_Shield</a>
+<a class="hover:text-primary transition-colors" href="#">Neural_TOS</a>
+<a class="hover:text-primary transition-colors" href="#">Kernel_Logs</a>
+</div>
+</footer>
+</div>
+</main>
+</div>
+</body></html>
