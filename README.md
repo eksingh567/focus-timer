@@ -2,6 +2,12 @@
 
 A phone app locking prototype controlled by a laptop timer over local network.
 
+## Deployment (Render)
+
+This project is configured for automated deployment on Render using the included `render.yaml`.
+
+**Live Link:** [https://focus-timer.onrender.com](https://focus-timer.onrender.com) *(Update this with your actual Render URL after deploying)*
+
 ## Project idea (IoT narrative)
 
 - **Edge controller (Laptop):** Flask app provides a timer dashboard and lock state API.
